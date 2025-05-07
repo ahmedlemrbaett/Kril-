@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>مؤجر - Krilī</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>تسجيل كمؤجر في Krilī</h1>
+    <a href="index.html">الرجوع للرئيسية</a>
+  </header>
+
+  <main>
+    <form action="#" method="post" enctype="multipart/form-data">
+      <label>اسمك الكامل:</label>
+      <input type="text" name="name" required />
+
+      <label>اسم السيارة:</label>
+      <input type="text" name="car_name" required />
+
+      <label>موقعك:</label>
+      <input type="text" name="location" required />
+
+      <label>صورة للسيارة (اختياري):</label>
+      <input type="file" name="car_image" accept="image/*" />
+
+      <label>خطة الاشتراك:</label>
+      <select name="plan" required>
+        <option value="">اختر مدة الاشتراك</option>
+        <option value="1">شهر واحد</option>
+        <option value="2">شهران</option>
+        <option value="3">ثلاثة أشهر</option>
+      </select>
+
+      <label>لقطة شاشة لعملية الدفع:</label>
+      <input type="file" name="payment_proof" accept="image/*" required />
+
+      <button type="submit">إرسال</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Krilī. جميع الحقوق محفوظة.</p>
+  </footer>
+</body>
+</html>
