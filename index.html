@@ -1,126 +1,139 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Krilī</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Krilī | كريلي</title>
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #e9f7fd;
-      text-align: center;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    .navbar {
-      background-color: #000;
-      color: #fff;
-      padding: 15px 20px;
+    body {
+      background: linear-gradient(to bottom, #e0f7ff, #ffffff);
+      color: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    header {
+      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 15px 20px;
+      background-color: #1e1e2f;
+      color: white;
     }
 
     .logo {
-      font-size: 20px;
+      font-size: 1.8em;
       font-weight: bold;
     }
 
-    .menu-toggle {
-      font-size: 28px;
+    .menu-icon {
+      font-size: 1.5em;
       cursor: pointer;
     }
 
-    .menu {
+    nav {
       display: none;
-      position: absolute;
-      background-color: #000;
-      top: 60px;
-      right: 10px;
-      border-radius: 5px;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      z-index: 100;
-    }
-
-    .menu li {
-      padding: 10px 20px;
-    }
-
-    .menu li a {
+      flex-direction: column;
+      background-color: #1e1e2f;
       color: white;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    nav a {
+      padding: 12px 20px;
       text-decoration: none;
+      color: white;
+      border-bottom: 1px solid #333;
     }
 
-    .menu li a:hover {
-      text-decoration: underline;
+    nav a:last-child {
+      border-bottom: none;
     }
 
-    h1 {
-      font-size: 36px;
-      margin: 50px 0 20px;
+    .main {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .main h1 {
+      font-size: 2.2em;
+      margin-bottom: 25px;
+      color: #1e1e2f;
     }
 
     .buttons {
-      margin-bottom: 30px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 60px;
     }
 
     .buttons button {
-      background-color: #00aaff;
-      color: white;
+      padding: 12px 25px;
+      font-size: 1.1em;
       border: none;
-      padding: 15px 30px;
-      margin: 10px;
-      border-radius: 10px;
-      font-size: 18px;
+      border-radius: 8px;
+      background-color: #0099cc;
+      color: white;
       cursor: pointer;
+      transition: background 0.3s;
     }
 
     .buttons button:hover {
-      background-color: #008fcc;
+      background-color: #0077aa;
     }
 
     .car-icon {
-      margin-top: 40px;
-    }
-
-    .car-icon img {
-      width: 120px;
-      opacity: 0.8;
+      position: fixed;
+      bottom: 20px;
+      font-size: 50px;
+      color: #111;
+      opacity: 0.1;
     }
   </style>
 </head>
 <body>
 
-  <nav class="navbar">
+  <header>
     <div class="logo">Krilī</div>
-    <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
-    <ul class="menu" id="menu">
-      <li><a href="#">تبديل اللغة</a></li>
-      <li><a href="#">اتصل بنا</a></li>
-    </ul>
-  </nav>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <nav id="menu">
+      <a href="#">تبديل اللغة</a>
+      <a href="#">الاتصال بنا</a>
+    </nav>
+  </header>
 
-  <h1>مرحباً في Krilī</h1>
-
-  <div class="buttons">
-    <button>تأجير</button>
-    <button>مؤجر</button>
+  <div class="main">
+    <h1>مرحباً بك في Krilī</h1>
+    <div class="buttons">
+      <button onclick="location.href='lessor.html'">مؤجر</button>
+      <button onclick="location.href='renter.html'">تأجير</button>
+    </div>
   </div>
 
-  <div class="car-icon">
-  <img src="https://cdn-icons-png.flaticon.com/512/744/744465.png" alt="Car Icon">
-</div>
-  
-  
+  <div class="car-icon">🚗</div>
 
   <script>
     function toggleMenu() {
-      var menu = document.getElementById("menu");
-      menu.style.display = (menu.style.display === "block") ? "none" : "block";
+      const menu = document.getElementById('menu');
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
     }
   </script>
-
 </body>
 </html>
