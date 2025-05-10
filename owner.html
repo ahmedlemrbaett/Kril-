@@ -1,48 +1,106 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>مؤجر - Krilī</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>إضافة سيارة - Krilī</title>
+  <style>
+    body {
+      background-color: #e6f4ff;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 60px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #000;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      text-align: right;
+      font-weight: bold;
+    }
+
+    input[type="text"], input[type="tel"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    .button {
+      margin-top: 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .back-button {
+      margin: 20px auto 10px;
+      display: inline-block;
+      background-color: #f0f0f0;
+      color: #007bff;
+      padding: 10px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      border: 1px solid #007bff;
+    }
+
+    .back-button:hover {
+      background-color: #e0e0e0;
+    }
+
+    .header {
+      margin-top: 30px;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>تسجيل كمؤجر في Krilī</h1>
-    <a href="index.html">الرجوع للرئيسية</a>
-  </header>
 
-  <main>
-    <form action="#" method="post" enctype="multipart/form-data">
-      <label>اسمك الكامل:</label>
-      <input type="text" name="name" required />
+  <a href="index.html" class="back-button">رجوع</a>
 
-      <label>اسم السيارة:</label>
-      <input type="text" name="car_name" required />
+  <div class="container">
+    <div class="header">
+      <h2>إضافة سيارة للإيجار عبر <strong>Krilī</strong></h2>
+    </div>
 
-      <label>موقعك:</label>
-      <input type="text" name="location" required />
+    <form>
+      <label for="carName">اسم السيارة:</label>
+      <input type="text" id="carName" name="carName" required>
 
-      <label>صورة للسيارة (اختياري):</label>
-      <input type="file" name="car_image" accept="image/*" />
+      <label for="phone">رقم الهاتف:</label>
+      <input type="tel" id="phone" name="phone" required>
 
-      <label>خطة الاشتراك:</label>
-      <select name="plan" required>
-        <option value="">اختر مدة الاشتراك</option>
-        <option value="1">شهر واحد</option>
-        <option value="2">شهران</option>
-        <option value="3">ثلاثة أشهر</option>
-      </select>
+      <label for="months">عدد الأشهر:</label>
+      <input type="number" id="months" name="months" required>
 
-      <label>لقطة شاشة لعملية الدفع:</label>
-      <input type="file" name="payment_proof" accept="image/*" required />
-
-      <button type="submit">إرسال</button>
+      <button type="submit" class="button">إضافة السيارة</button>
     </form>
-  </main>
+  </div>
 
-  <footer>
-    <p>&copy; 2025 Krilī. جميع الحقوق محفوظة.</p>
-  </footer>
 </body>
 </html>
