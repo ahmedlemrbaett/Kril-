@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>صفحة المؤجر - Krilī</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5faff;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #000;
+            color: #fff;
+            padding: 15px;
+            font-size: 24px;
+        }
+        form {
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, select {
+            display: block;
+            width: 95%;
+            margin: 10px auto;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .back-link {
+            margin-top: 20px;
+            display: block;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>إضافة سيارة للتأجير</header>
+
+    <form action="#" method="post" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="اسمك الكامل" required>
+        <input type="text" name="car_name" placeholder="اسم السيارة" required>
+        <input type="text" name="location" placeholder="موقع السيارة" required>
+        <label>صورة السيارة (اختياري)</label>
+        <input type="file" name="car_image" accept="image/*">
+        <label>مدة الاشتراك</label>
+        <select name="duration" required>
+            <option value="1">شهر</option>
+            <option value="2">شهران</option>
+            <option value="3">ثلاثة أشهر</option>
+        </select>
+        <label>رفع لقطة من عملية الدفع</label>
+        <input type="file" name="payment_screenshot" accept="image/*" required>
+        <button type="submit">إرسال</button>
+    </form>
+
+    <a class="back-link" href="index.html">الرجوع إلى الرئيسية</a>
+</body>
+</html>
