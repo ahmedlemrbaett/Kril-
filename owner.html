@@ -1,81 +1,138 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>صفحة المؤجر - Krilī</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5faff;
-            color: #333;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #000;
-            color: #fff;
-            padding: 15px;
-            font-size: 24px;
-        }
-        form {
-            margin: 30px auto;
-            padding: 20px;
-            background-color: #fff;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        input, select {
-            display: block;
-            width: 95%;
-            margin: 10px auto;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            margin-top: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .back-link {
-            margin-top: 20px;
-            display: block;
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>مؤجر - Krilī</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f8ff;
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+    }
+
+    header {
+      background-color: #000;
+      color: #fff;
+      padding: 1em;
+      text-align: center;
+    }
+
+    main {
+      padding: 2em;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 2em;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: auto;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5em;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="file"],
+    select {
+      width: 100%;
+      padding: 0.7em;
+      margin-bottom: 1.2em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .button {
+      background-color: #000;
+      color: #fff;
+      padding: 0.7em 1.5em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+
+    .button:hover {
+      background-color: #333;
+    }
+
+    .back-button {
+      display: block;
+      text-align: center;
+      margin-top: 2em;
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+    }
+
+    #confirmation {
+      display: none;
+      color: green;
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <header>إضافة سيارة للتأجير</header>
 
-    <form action="#" method="post" enctype="multipart/form-data">
-        <input type="text" name="name" placeholder="اسمك الكامل" required>
-        <input type="text" name="car_name" placeholder="اسم السيارة" required>
-        <input type="text" name="location" placeholder="موقع السيارة" required>
-        <label>صورة السيارة (اختياري)</label>
-        <input type="file" name="car_image" accept="image/*">
-        <label>مدة الاشتراك</label>
-        <select name="duration" required>
-            <option value="1">شهر</option>
-            <option value="2">شهران</option>
-            <option value="3">ثلاثة أشهر</option>
-        </select>
-        <label>رفع لقطة من عملية الدفع</label>
-        <input type="file" name="payment_screenshot" accept="image/*" required>
-        <button type="submit">إرسال</button>
+  <header>
+    <h1>صفحة المؤجر</h1>
+  </header>
+
+  <main>
+    <form id="ownerForm">
+      <label for="name">اسمك:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="carName">اسم السيارة:</label>
+      <input type="text" id="carName" name="carName" required>
+
+      <label for="phone">رقم الهاتف:</label>
+      <input type="text" id="phone" name="phone" required>
+
+      <label for="location">الموقع:</label>
+      <input type="text" id="location" name="location" required>
+
+      <label for="carImage">صورة السيارة:</label>
+      <input type="file" id="carImage" name="carImage" accept="image/*" required>
+
+      <label for="duration">مدة الاشتراك:</label>
+      <select id="duration" name="duration" required>
+        <option value="">اختر المدة</option>
+        <option value="شهر">شهر</option>
+        <option value="شهران">شهران</option>
+        <option value="ثلاثة أشهر">ثلاثة أشهر</option>
+      </select>
+
+      <label for="paymentProof">لقطة شاشة من الدفع:</label>
+      <input type="file" id="paymentProof" name="paymentProof" accept="image/*" required>
+
+      <button type="submit" class="button">إرسال</button>
     </form>
 
-    <a class="back-link" href="index.html">الرجوع إلى الرئيسية</a>
+    <p id="confirmation">تم إرسال النموذج بنجاح!</p>
+
+    <a href="index.html" class="back-button">رجوع</a>
+  </main>
+
+  <script>
+    const form = document.getElementById('ownerForm');
+    const confirmation = document.getElementById('confirmation');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // منع الإرسال الحقيقي
+      confirmation.style.display = 'block'; // عرض رسالة النجاح
+      form.reset(); // إعادة تعيين الحقول
+    });
+  </script>
+
 </body>
 </html>
