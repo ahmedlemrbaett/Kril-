@@ -1,136 +1,124 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>مؤجر - Krilī</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f0f8ff;
-      margin: 0;
-      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f8ff;
+      padding: 20px;
       direction: rtl;
+      text-align: right;
     }
-
-    header {
-      background-color: #000;
-      color: #fff;
-      padding: 1em;
-      text-align: center;
+    h1 {
+      color: #0077cc;
     }
-
-    main {
-      padding: 2em;
-    }
-
-    form {
-      background-color: #fff;
-      padding: 2em;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      max-width: 500px;
-      margin: auto;
-    }
-
-    label {
+    input, select {
       display: block;
-      margin-bottom: 0.5em;
-      font-weight: bold;
-    }
-
-    input[type="text"],
-    input[type="file"],
-    select {
       width: 100%;
-      padding: 0.7em;
-      margin-bottom: 1.2em;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      margin-bottom: 15px;
+      padding: 10px;
+      font-size: 16px;
     }
-
-    .button {
-      background-color: #000;
-      color: #fff;
-      padding: 0.7em 1.5em;
+    button {
+      background-color: #0077cc;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
       border: none;
-      border-radius: 5px;
       cursor: pointer;
-      font-size: 1em;
     }
-
-    .button:hover {
-      background-color: #333;
-    }
-
     .back-button {
-      display: block;
-      text-align: center;
-      margin-top: 2em;
-      text-decoration: none;
-      color: #000;
-      font-weight: bold;
-    }
-
-    #confirmation {
-      display: none;
-      color: green;
-      text-align: center;
       margin-top: 20px;
-      font-weight: bold;
+      display: inline-block;
+      color: #0077cc;
+      cursor: pointer;
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>صفحة المؤجر</h1>
-  </header>
+  <h1>تسجيل كمؤجر</h1>
 
-  <main>
-    <form id="ownerForm">
-      <label for="name">اسمك:</label>
-      <input type="text" id="name" name="name" required>
+  <form id="ownerForm">
+    <input type="text" id="name" placeholder="اسمك" required>
+    <input type="text" id="carName" placeholder="اسم السيارة" required>
+    <input type="text" id="phone" placeholder="رقم الهاتف" required>
+    <input type="text" id="location" placeholder="الموقع" required>
+    <select id="plan" required>
+      <option value="">اختر مدة الاشتراك</option>
+      <option value="شهر">شهر</option>
+      <option value="شهران">شهران</option>
+      <option value="ثلاثة أشهر">ثلاثة أشهر</option>
+    </select>
+    <label>صورة السيارة:</label>
+    <input type="file" id="carImage" accept="image/*" required>
+    <label>لقطة شاشة من الدفع:</label>
+    <input type="file" id="paymentScreenshot" accept="image/*" required>
+    <button type="submit">إرسال</button>
+  </form>
 
-      <label for="carName">اسم السيارة:</label>
-      <input type="text" id="carName" name="carName" required>
+  <div class="back-button" onclick="location.href='index.html'">رجوع</div>
 
-      <label for="phone">رقم الهاتف:</label>
-      <input type="text" id="phone" name="phone" required>
+  <!-- Firebase SDKs -->
+  <script type="module">
+    // Firebase imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-storage.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
-      <label for="location">الموقع:</label>
-      <input type="text" id="location" name="location" required>
+    const firebaseConfig = {
+      apiKey: "AIzaSyC2y8ykwB4W4TwbrC7fKOOGi965PlRF3Ng",
+      authDomain: "kril-ccd5b.firebaseapp.com",
+      projectId: "kril-ccd5b",
+      storageBucket: "kril-ccd5b.appspot.com",
+      messagingSenderId: "53124043653",
+      appId: "1:53124043653:web:ea5ff657290a55cb8aaaec",
+      measurementId: "G-4CDWTX3VPC"
+    };
 
-      <label for="carImage">صورة السيارة:</label>
-      <input type="file" id="carImage" name="carImage" accept="image/*" required>
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
 
-      <label for="duration">مدة الاشتراك:</label>
-      <select id="duration" name="duration" required>
-        <option value="">اختر المدة</option>
-        <option value="شهر">شهر</option>
-        <option value="شهران">شهران</option>
-        <option value="ثلاثة أشهر">ثلاثة أشهر</option>
-      </select>
+    document.getElementById('ownerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-      <label for="paymentProof">لقطة شاشة من الدفع:</label>
-      <input type="file" id="paymentProof" name="paymentProof" accept="image/*" required>
+      const name = document.getElementById('name').value;
+      const carName = document.getElementById('carName').value;
+      const phone = document.getElementById('phone').value;
+      const location = document.getElementById('location').value;
+      const plan = document.getElementById('plan').value;
+      const carImage = document.getElementById('carImage').files[0];
+      const paymentScreenshot = document.getElementById('paymentScreenshot').files[0];
 
-      <button type="submit" class="button">إرسال</button>
-    </form>
+      // Upload images
+      const carImageRef = ref(storage, 'carImages/' + carImage.name);
+      const paymentRef = ref(storage, 'payments/' + paymentScreenshot.name);
 
-    <p id="confirmation">تم إرسال النموذج بنجاح!</p>
+      await uploadBytes(carImageRef, carImage);
+      await uploadBytes(paymentRef, paymentScreenshot);
 
-    <a href="index.html" class="back-button">رجوع</a>
-  </main>
+      const carImageURL = await getDownloadURL(carImageRef);
+      const paymentURL = await getDownloadURL(paymentRef);
 
-  <script>
-    const form = document.getElementById('ownerForm');
-    const confirmation = document.getElementById('confirmation');
+      // Store data in Firestore
+      await addDoc(collection(db, "owners"), {
+        name,
+        carName,
+        phone,
+        location,
+        plan,
+        carImageURL,
+        paymentURL,
+        status: "غير مدفوع"
+      });
 
-    form.addEventListener('submit', function(event) {
-      event.preventDefault(); // منع الإرسال الحقيقي
-      confirmation.style.display = 'block'; // عرض رسالة النجاح
-      form.reset(); // إعادة تعيين الحقول
+      alert("تم الإرسال بنجاح! بانتظار التأكيد.");
+      document.getElementById('ownerForm').reset();
     });
   </script>
 
