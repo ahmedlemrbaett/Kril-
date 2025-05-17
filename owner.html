@@ -2,128 +2,77 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>صفحة المؤجر - Krilī</title>
+  <title>نموذج تأجير سيارة - Krilī</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f8ff;
-      text-align: center;
-      direction: rtl;
-    }
-    form {
-      background-color: #ffffff;
-      padding: 20px;
-      margin: 40px auto;
-      width: 90%;
-      max-width: 500px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    input, select {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background-color: #007bff;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .back-btn {
-      display: block;
-      margin: 20px auto;
-      background-color: #444;
-    }
+    body { font-family: Arial; text-align: center; background: #f0f0f0; padding: 20px; }
+    form { background: white; padding: 20px; border-radius: 10px; display: inline-block; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input, select { margin: 10px 0; padding: 10px; width: 250px; border: 1px solid #ccc; border-radius: 5px; }
+    button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; }
+    button:hover { background: #0056b3; }
+    #backBtn { margin-top: 10px; display: block; color: #007bff; text-decoration: none; }
   </style>
 </head>
-<body>
+<body dir="rtl">
 
-  <h2>تسجيل سيارة للإيجار</h2>
-  <form id="ownerForm">
-    <input type="text" id="name" placeholder="اسمك" required><br>
-    <input type="text" id="phone" placeholder="رقم الهاتف" required><br>
-    <input type="text" id="carName" placeholder="اسم السيارة" required><br>
-    <input type="text" id="location" placeholder="الموقع" required><br>
-    <label>صورة السيارة:</label><br>
-    <input type="file" id="carImage" accept="image/*" required><br>
-    <label>مدة الاشتراك:</label><br>
-    <select id="duration" required>
-      <option value="">اختر مدة</option>
-      <option value="شهر واحد">شهر واحد - 200 UM</option>
-      <option value="شهران">شهران - 400 UM</option>
-      <option value="3 أشهر">3 أشهر - 500 UM</option>
+  <h2>نموذج تأجير سيارة</h2>
+
+  <form id="renterForm">
+    <input type="text" name="name" placeholder="الاسم" required><br>
+    <input type="tel" name="phone" placeholder="رقم الهاتف" required><br>
+    <input type="text" name="carName" placeholder="اسم السيارة" required><br>
+    <input type="text" name="location" placeholder="الموقع" required><br>
+    
+    <select name="duration" required>
+      <option value="">اختر مدة الاشتراك</option>
+      <option value="شهر">شهر - 200 UM</option>
+      <option value="شهران">شهران - 300 UM</option>
+      <option value="ثلاثة أشهر">ثلاثة أشهر - 500 UM</option>
     </select><br>
-    <label>لقطة شاشة من الدفع:</label><br>
-    <input type="file" id="paymentScreenshot" accept="image/*" required><br>
+
+    <input type="url" name="carImage" placeholder="رابط صورة السيارة (مثلاً من Imgur)" required><br>
+    <input type="url" name="paymentImage" placeholder="رابط لقطة الدفع (صورة الدفع)" required><br>
+
     <button type="submit">إرسال</button>
   </form>
 
-  <button class="back-btn" onclick="window.location.href='index.html'">رجوع</button>
+  <a id="backBtn" href="index.html">🔙 الرجوع</a>
+  <p id="status" style="margin-top: 15px;"></p>
 
-  <!-- Firebase Scripts -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-storage.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyC2y8ykwB4W4TwbrC7fKOOGi965PlRF3Ng",
-      authDomain: "kril-ccd5b.firebaseapp.com",
-      projectId: "kril-ccd5b",
-      storageBucket: "kril-ccd5b.appspot.com",
-      messagingSenderId: "53124043653",
-      appId: "1:53124043653:web:ea5ff657290a55cb8aaaec",
-      measurementId: "G-4CDWTX3VPC"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const storage = getStorage(app);
-
-    document.getElementById("ownerForm").addEventListener("submit", async (e) => {
+  <script>
+    document.getElementById('renterForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      const name = document.getElementById("name").value;
-      const phone = document.getElementById("phone").value;
-      const carName = document.getElementById("carName").value;
-      const location = document.getElementById("location").value;
-      const duration = document.getElementById("duration").value;
-      const carImageFile = document.getElementById("carImage").files[0];
-      const paymentFile = document.getElementById("paymentScreenshot").files[0];
+      const form = e.target;
+      const data = {
+        name: form.name.value,
+        phone: form.phone.value,
+        carName: form.carName.value,
+        location: form.location.value,
+        duration: form.duration.value,
+        carImage: form.carImage.value,
+        paymentImage: form.paymentImage.value
+      };
 
-      if (!carImageFile || !paymentFile) {
-        alert("يرجى رفع الصور المطلوبة");
-        return;
-      }
+      document.getElementById('status').textContent = '⏳ جاري الإرسال...';
 
-      const carImageRef = ref(storage, `carImages/${Date.now()}-${carImageFile.name}`);
-      const paymentRef = ref(storage, `payments/${Date.now()}-${paymentFile.name}`);
-
-      const carSnapshot = await uploadBytes(carImageRef, carImageFile);
-      const paymentSnapshot = await uploadBytes(paymentRef, paymentFile);
-
-      const carImageUrl = await getDownloadURL(carSnapshot.ref);
-      const paymentImageUrl = await getDownloadURL(paymentSnapshot.ref);
-
-      await addDoc(collection(db, "owners"), {
-        name,
-        phone,
-        carName,
-        location,
-        duration,
-        carImageUrl,
-        paymentImageUrl,
-        status: "غير مدفوع"
+      fetch('https://script.google.com/macros/s/AKfycbxrWzAaIHKhxvL5UB1YRk4oJ03CF0KNHYnMkFqLlH3GUEkh7uiidEoOL_ezDyKlrqQ/exec', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => res.text())
+      .then(text => {
+        document.getElementById('status').textContent = text;
+        form.reset();
+      })
+      .catch(err => {
+        document.getElementById('status').textContent = '❌ حدث خطأ، يرجى المحاولة لاحقًا.';
+        console.error(err);
       });
-
-      alert("تم إرسال البيانات بنجاح!");
-      document.getElementById("ownerForm").reset();
     });
   </script>
+
 </body>
 </html>
